@@ -77,11 +77,6 @@ Before you begin, ensure you have the following installed:
 
 2. **Make your changes** following our [code standards](#-code-standards)
 
-3. **Test your changes**
-   ```bash
-   dotnet test Cocktails.Api.sln
-   ```
-
 4. **Commit your changes**
    ```bash
    git add .
