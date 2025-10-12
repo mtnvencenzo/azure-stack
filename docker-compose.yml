@@ -23,11 +23,12 @@ services:
       - "1234:1234" # CosmosDB explorer
     restart: unless-stopped
     volumes:
-      - ./volumes/cosmosdb-data:/tmp/cosmos/appdata
+      - ./volumes/cosmosdb-data:/data
     networks:
       - azure-network
     environment:
       - PROTOCOL=https
+      - DATA_PATH=/data
       - AZURE_COSMOS_EMULATOR_PARTITION_COUNT=10
       - AZURE_COSMOS_EMULATOR_ENABLE_DATA_PERSISTENCE=true
 
