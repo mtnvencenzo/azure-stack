@@ -11,7 +11,7 @@ services:
       - "10002:10002" # Table storage
     restart: unless-stopped
     volumes:
-      - ./volumes/azurite-data:/workspace
+      - "${HOME}/mnt/azure-stack/azurite-data:/workspace"
     networks:
       - azure-network
 
@@ -23,7 +23,7 @@ services:
       - "1234:1234" # CosmosDB explorer
     restart: unless-stopped
     volumes:
-      - ./volumes/cosmosdb-data:/data
+      - "${HOME}/mnt/azure-stack/cosmosdb-data:/data"
     networks:
       - azure-network
     environment:
@@ -75,7 +75,7 @@ services:
     networks:
       - azure-network
     volumes:
-      - ./volumes/sqlserver-data:/var/opt/mssql
+      - "${HOME}/mnt/azure-stack/sqlserver-data:/var/opt/mssql"
     environment:
       - ACCEPT_EULA=Y
       - SA_PASSWORD=StrongPassword123!
@@ -96,7 +96,7 @@ services:
       - Tenant:AnonymousAuthEnabled=true
       - Authentication:Anonymous:AnonymousUserRole=Owner
     volumes:
-      - ./volumes/appconfig-data:/app/.aace
+      - "${HOME}/mnt/azure-stack/appconfig-data:/app/.aace"
     restart: unless-stopped
     networks:
       - azure-network

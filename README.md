@@ -52,7 +52,15 @@ All containers run within a dedicated `azure-network` bridge network for secure 
 
 > This setup is designed for local development and testing. Do not use in production environments.
 
-1. **Start the Azure service emulators:**
+### 1. Create local directories for persistent data:
+```bash
+mkdir -p "${HOME}/mnt/azure-stack/appconfig-data"
+mkdir -p "${HOME}/mnt/azure-stack/azurite-data"
+mkdir -p "${HOME}/mnt/azure-stack/cosmosdb-data"
+mkdir -p "${HOME}/mnt/azure-stack/sqlserver-data"
+```
+
+### 2. Start the Azure service emulators:
 
     ```bash
     docker compose -p azure-stack -f docker-compose.yml up -d
@@ -62,17 +70,17 @@ All containers run within a dedicated `azure-network` bridge network for secure 
 
     ```
 
-2. **Stop the services:**
+### 3. Stop the services:
     ```bash
     docker compose -p azure-stack -f docker-compose.yml down -v
     ```
 
-3. **Rebuild and restart a specific service:**
+### 4. Rebuild and restart a specific service:
     ```bash
     docker compose -p azure-stack -f docker-compose.yml up -d --force-recreate --no-deps --build <service_name>
     ```
 
-4. **Check all services status:**
+### 5. heck all services status:
     ```bash
     docker compose ps
     ```
