@@ -55,20 +55,20 @@ All containers run within a dedicated `azure-network` bridge network for secure 
 ### 1. Start the Azure service emulators:
 
     ```bash
-    docker compose -p azure-stack -f docker-compose.yml up -d
+    docker compose -f docker-compose.yml up -d
 
     # Or if the containers have already been created
-    docker compose -p azure-stack -f docker-compose.yml start
+    docker compose -f docker-compose.yml start
     ```
 
 ### 2. Stop the services:
     ```bash
-    docker compose -p azure-stack -f docker-compose.yml down -v
+    docker compose -f docker-compose.yml down -v
     ```
 
 ### 3. Rebuild and restart a specific service:
     ```bash
-    docker compose -p azure-stack -f docker-compose.yml up -d --force-recreate --no-deps --build <service_name>
+    docker compose -f docker-compose.yml up -d --force-recreate --no-deps --build <service_name>
     ```
 
 ### 4. heck all services status:
