@@ -16,4 +16,9 @@ certutil -d sql:$HOME/.pki/nssdb -L | grep azurite
 
 # 5. Optionally convert to a pfx for use with .net and kestrel
 openssl pkcs12 -export -out azurite.pfx -inkey azurite.key -in azurite.crt -passout pass:password
+
+# 6. Make sure everythings readable by all users
+chmod 644 ./azurite.crt
+chmod 644 ./azurite.key
+chmod 644 ./azurite.pfx
 ```
