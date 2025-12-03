@@ -4,7 +4,15 @@ services:
   azurite:
     container_name: azurite
     image: mcr.microsoft.com/azure-storage/azurite:latest
-    command: ["azurite", "--blobHost", "0.0.0.0", "--queueHost", "0.0.0.0", "--tableHost", "0.0.0.0", "--location", "/workspace", "--skipApiVersionCheck"]
+    command: [
+      "azurite",
+      "--blobHost", "0.0.0.0",
+      "--queueHost", "0.0.0.0",
+      "--tableHost", "0.0.0.0",
+      "--location", "/workspace",
+      "--skipApiVersionCheck",
+      "--cert", "/certs/azurite.crt",
+      "--key", "/certs/azurite.key"]
     ports:
       - "10000:10000" # Blob storage
       - "10001:10001" # Queue storage
@@ -12,6 +20,8 @@ services:
     restart: unless-stopped
     volumes:
       - vol_azurite:/workspace
+      - ./.certs/azurite.crt:/certs/azurite.crt:ro
+      - ./.certs/azurite.key:/certs/azurite.key:ro
     networks:
       - azure-network
 
