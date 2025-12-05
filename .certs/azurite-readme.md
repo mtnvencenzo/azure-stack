@@ -14,7 +14,7 @@ certutil -d sql:$HOME/.pki/nssdb -A -t "CP,CP," -n "azurite" -i ./azurite.crt
 # 4. Verify it was added:
 certutil -d sql:$HOME/.pki/nssdb -L | grep azurite
 
-# 5. Optionally convert to a pfx for use with .net and kestrel
+# 5. Optionally convert to a pfx
 openssl pkcs12 -export -out azurite.pfx -inkey azurite.key -in azurite.crt -passout pass:password
 
 # 6. Make sure everythings readable by all users

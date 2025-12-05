@@ -29,19 +29,25 @@ services:
     container_name: cosmosdb
     image: mcr.microsoft.com/cosmosdb/linux/azure-cosmos-emulator:vnext-preview
     tty: true
-    mem_limit: 6g
-    cpu_count: 2
+    # mem_limit: 6g
+    # cpu_count: 3
     ports:
       - "8081:8081" # CosmosDB service
       - "1234:1234" # CosmosDB explorer
     restart: unless-stopped
     volumes:
       - vol_cosmos:/data
+      - ./.certs/cosmos.crt:/certs/cosmos.crt:ro
+      - ./.certs/cosmos.key:/certs/cosmos.key:ro
     networks:
       - azure-network
     environment:
       - PROTOCOL=https
+      - EXPLORER_PROTOCOL=http
       - DATA_PATH=/data
+      - CERT_PATH=/certs/cosmos.crt
+      - KEY_FILE=/certs/cosmos.key
+      - AZURE_COSMOS_EMULATOR_ENABLE_DATA_HTTPS=true
       - AZURE_COSMOS_EMULATOR_PARTITION_COUNT=10
       - AZURE_COSMOS_EMULATOR_ENABLE_DATA_PERSISTENCE=true
 
