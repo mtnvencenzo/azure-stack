@@ -21,8 +21,8 @@ services:
     restart: unless-stopped
     volumes:
       - vol_azurite:/workspace
-      - ${DOCKER_LOCAL_CERT_PATH:-$HOME/Github/docker-local-certs}/docker-local.crt:/certs/docker-local.crt:ro
-      - ${DOCKER_LOCAL_CERT_PATH:-$HOME/Github/docker-local-certs}/docker-local.key:/certs/docker-local.key:ro
+      - ${DOCKER_LOCAL_CERT_PATH:-$HOME/Github/docker-local-certs/certs}/docker-local.crt:/certs/docker-local.crt:ro
+      - ${DOCKER_LOCAL_CERT_PATH:-$HOME/Github/docker-local-certs/certs}/docker-local.key:/certs/docker-local.key:ro
     networks:
       azure-network:
         aliases:
@@ -41,8 +41,8 @@ services:
     restart: unless-stopped
     volumes:
       - vol_cosmos:/data
-      - ${DOCKER_LOCAL_CERT_PATH:-$HOME/Github/docker-local-certs}/docker-local.crt:/certs/docker-local.crt:ro
-      - ${DOCKER_LOCAL_CERT_PATH:-$HOME/Github/docker-local-certs}/docker-local.key:/certs/docker-local.key:ro
+      - ${DOCKER_LOCAL_CERT_PATH:-$HOME/Github/docker-local-certs/certs}/docker-local.crt:/certs/docker-local.crt:ro
+      - ${DOCKER_LOCAL_CERT_PATH:-$HOME/Github/docker-local-certs/certs}/docker-local.key:/certs/docker-local.key:ro
     networks:
       azure-network:
         aliases:
@@ -67,7 +67,7 @@ services:
       - "5300:5300"   # Health endpoint
     restart: unless-stopped
     volumes:
-      - ${DOCKER_LOCAL_CERT_PATH:-$HOME/Github/docker-local-certs}/docker-local.crt:/usr/local/share/ca-certificates/docker-local.crt:ro
+      - ${DOCKER_LOCAL_CERT_PATH:-$HOME/Github/docker-local-certs/certs}/docker-local.crt:/usr/local/share/ca-certificates/docker-local.crt:ro
     networks:
       azure-network:
         aliases:
