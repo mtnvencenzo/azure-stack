@@ -2,7 +2,7 @@ name: azure-stack
 
 services:
   azurite:
-    hostname: azurite.docker.local
+    hostname: azurite-docker-local
     container_name: azurite
     image: mcr.microsoft.com/azure-storage/azurite:latest
     command: [
@@ -12,8 +12,8 @@ services:
       "--tableHost", "0.0.0.0",
       "--location", "/workspace",
       "--skipApiVersionCheck",
-      "--cert", "/certs/docker-local.crt",
-      "--key", "/certs/docker-local.key"]
+      "--cert", "/certs/azurite-local.crt",
+      "--key", "/certs/azurite-local.key"]
     ports:
       - "10000:10000" # Blob storage
       - "10001:10001" # Queue storage
@@ -21,12 +21,12 @@ services:
     restart: unless-stopped
     volumes:
       - vol_azurite:/workspace
-      - ${DOCKER_LOCAL_CERT_PATH:-$HOME/Github/docker-local-certs/certs}/docker-local.crt:/certs/docker-local.crt:ro
-      - ${DOCKER_LOCAL_CERT_PATH:-$HOME/Github/docker-local-certs/certs}/docker-local.key:/certs/docker-local.key:ro
+      - ${DOCKER_LOCAL_CERT_PATH:-$HOME/Github/dev-certs/azurite-local}/azurite-local.crt:/certs/azurite-local.crt:ro
+      - ${DOCKER_LOCAL_CERT_PATH:-$HOME/Github/dev-certs/azurite-local}/azurite-local.key:/certs/azurite-local.key:ro
     networks:
       azure-network:
         aliases:
-          - azurite.docker.local
+          - azurite-docker-local
 
   cosmosdb:
     hostname: cosmosdb.docker.local
@@ -41,8 +41,8 @@ services:
     restart: unless-stopped
     volumes:
       - vol_cosmos:/data
-      - ${DOCKER_LOCAL_CERT_PATH:-$HOME/Github/docker-local-certs/certs}/docker-local.crt:/certs/docker-local.crt:ro
-      - ${DOCKER_LOCAL_CERT_PATH:-$HOME/Github/docker-local-certs/certs}/docker-local.key:/certs/docker-local.key:ro
+      - ${DOCKER_LOCAL_CERT_PATH:-$HOME/Github/dev-certs/docker-local}/docker-local.crt:/certs/docker-local.crt:ro
+      - ${DOCKER_LOCAL_CERT_PATH:-$HOME/Github/dev-certs/docker-local}/docker-local.key:/certs/docker-local.key:ro
     networks:
       azure-network:
         aliases:
@@ -67,17 +67,17 @@ services:
       - "5300:5300"   # Health endpoint
     restart: unless-stopped
     volumes:
-      - ${DOCKER_LOCAL_CERT_PATH:-$HOME/Github/docker-local-certs/certs}/docker-local.crt:/usr/local/share/ca-certificates/docker-local.crt:ro
+      - ${DOCKER_LOCAL_CERT_PATH:-$HOME/Github/dev-certs/azurite-local}/azurite-local.crt:/usr/local/share/ca-certificates/azurite-local.crt:ro
     networks:
       azure-network:
         aliases:
           - eventhubs.docker.local
     environment:
       - ACCEPT_EULA=Y
-      - BLOB_SERVER=azurite.docker.local
-      - METADATA_SERVER=azurite.docker.local
-      - AZURE_STORAGE_CONNECTION_STRING=DefaultEndpointsProtocol=https;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=https://azurite.docker.local:10000/devstoreaccount1;QueueEndpoint=https://azurite.docker.local:10001/devstoreaccount1;TableEndpoint=https://azurite.docker.local:10002/devstoreaccount1;
-      - NODE_EXTRA_CA_CERTS=/usr/local/share/ca-certificates/docker-local.crt
+      - BLOB_SERVER=azurite-docker-local
+      - METADATA_SERVER=azurite-docker-local
+      - AZURE_STORAGE_CONNECTION_STRING=DefaultEndpointsProtocol=https;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=https://azurite-docker-local:10000/devstoreaccount1;QueueEndpoint=https://azurite-docker-local:10001/devstoreaccount1;TableEndpoint=https://azurite-docker-local:10002/devstoreaccount1;
+      - NODE_EXTRA_CA_CERTS=/usr/local/share/ca-certificates/azurite-local.crt
     depends_on:
       - azurite
 
